@@ -1,0 +1,62 @@
+apply plugin: 'com.android.application'
+
+def currentVersionCode = getVersionCode()
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
+    defaultConfig {
+        applicationId "com.payne.easyxposed"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+//            versionNameSuffix ".${currentVersionCode}"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+        }
+        debug {
+//            versionNameSuffix ".${currentVersionCode}"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compileOnly files('lib/XposedBridgeAPI-89.jar')
+
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+}
+
+def getVersionCode() {
+    def propsFile = file('version.properties')
+    def properties = new Properties()
+    properties.load(new FileInputStream(propsFile))
+    def vCode = properties['versionCode'].toInteger()
+    properties['versionCode'] = (++vCode).toString()
+    properties.store(propsFile.newWriter(), null)
+    return vCode
+}
+
