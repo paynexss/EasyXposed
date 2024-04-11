@@ -52,13 +52,13 @@ public class FakeLocation {
                     }
                 });
 
-                XposedHelpers.findAndHookMethod("ށ.ރ.ؠ.ވ.֏", classLoader, "֏", android.content.Context.class, new XC_MethodReplacement() {
-                    @Override
-                    protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-                        myLog("no update====");
-                        return null;
-                    }
-                });
+//                XposedHelpers.findAndHookMethod("ށ.ރ.ؠ.ވ.֏", classLoader, "֏", android.content.Context.class, new XC_MethodReplacement() {
+//                    @Override
+//                    protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+////                        myLog("no update====");
+//                        return null;
+//                    }
+//                });
             }
         });
     }
